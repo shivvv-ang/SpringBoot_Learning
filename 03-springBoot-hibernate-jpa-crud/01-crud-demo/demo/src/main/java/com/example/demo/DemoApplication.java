@@ -8,6 +8,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 
+import java.util.List;
+
 @SpringBootApplication
 public class DemoApplication {
 
@@ -21,10 +23,58 @@ public class DemoApplication {
 
 			//createStudent(studentDao);
 
-			//CreateMultipleStudent(studentDao);
+			CreateMultipleStudent(studentDao);
 
-			readStudent(studentDao);
+			//readStudent(studentDao);
+
+			//queryALlStudent(studentDao);
+
+			//queryByLastName(studentDao);
+
+			//updateStudent(studentDao);
+
+			//deleteStudent(studentDao);
+
+			//deleteAllStudents(studentDao);
 		};
+	}
+
+	private void deleteAllStudents(StudentDao studentDao) {
+
+		int rowsDeleted = studentDao.deleteAll();
+
+		System.out.println(rowsDeleted);
+	}
+
+	private void  deleteStudent(StudentDao studentDao) {
+		studentDao.delete(3);
+	}
+
+	private void updateStudent(StudentDao studentDao) {
+
+		Student student = studentDao.findById(1);
+
+		student.setLastName("pikachu");
+
+		studentDao.update(student);
+
+		System.out.println("Updated student " + student);
+	}
+
+	private void queryByLastName(StudentDao studentDao) {
+
+		List<Student> students = studentDao.findByLasName("khedulkar");
+
+		students.forEach(System.out::println);
+
+	}
+
+	private void queryALlStudent(StudentDao studentDao) {
+		List<Student> students = studentDao.findAll();
+
+		for(Student student : students){
+			System.out.println(student);
+		}
 	}
 
 	private void createStudent(StudentDao studentDao) {
