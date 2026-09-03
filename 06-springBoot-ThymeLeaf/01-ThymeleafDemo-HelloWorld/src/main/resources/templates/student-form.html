@@ -14,6 +14,16 @@
 
   Last Name: <input type="text" th:field="*{lastName}"><br>
 
+    <select th:field="*{Country}">
+        <option th:each="tempCountry : ${countries}" th:value="${tempCountry}" th:text="${tempCountry}" />
+    </select>
+
+    <br>
+
+    <input type="radio" th:field="*{favoriteLanguage}" th:each="tempLanguage : ${language}"  th:value="${tempLanguage}" th:text="${tempLanguage}" />
+
+    <br>
+
   <input type="submit" value="Submit">
 
 </form>
