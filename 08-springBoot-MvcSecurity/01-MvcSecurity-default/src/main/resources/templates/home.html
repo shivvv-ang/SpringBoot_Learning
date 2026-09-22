@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xlmns:th="http://www.thymeleaf.org">
+<html lang="en"  xlmns:th="http://www.thymeleaf.org"
+xmlns:th="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>I Dont know what this page is for</title>
@@ -9,6 +10,38 @@
     <h2>something serious</h2>
     <hr>
     <p>Welcome to no specific purpose page</p>
+
+
+    <hr>
+
+    <p>
+        User : <span sec:authentication="principal.username" ></span>
+        <br><br>
+        Roles(S) : <span sec:authentication="principal.authorities"></span>
+    </p>
+
+
+
+    <div sec:authorize="hasRole('MANAGER')">
+
+        <p>
+            <a th:href="@{/leaders}">LeaderShip Meeting</a>
+            (only for Managers peeps)
+        </p>
+
+    </div>
+
+
+
+    <div sec:authorize="hasRole('ADMIN')">
+        <p>
+            <a th:href="@{/systems}">IT Systems Meeting</a>
+            (only for Admin peeps)
+        </p>
+    </div>
+
+
+    <hr>
 
     <form action="#" method="POST" th:action="@{/logout}">
 
