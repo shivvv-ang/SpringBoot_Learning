@@ -1,6 +1,7 @@
 package com.SpringBoot.CrudDemo.dao;
 
 import com.SpringBoot.CrudDemo.entity.Instructor;
+import com.SpringBoot.CrudDemo.entity.InstructorDetail;
 
 public interface AppDao {
 
@@ -10,4 +11,7 @@ public interface AppDao {
 
     void DeleteInstructor(int id);
 
+    InstructorDetail findInstructorDetailById(int id);
+
+    void deleteInstructorDetailById(int id);
 }
