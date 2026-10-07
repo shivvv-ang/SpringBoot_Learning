@@ -1,6 +1,7 @@
 package com.SpringBoot.CrudDemo;
 
 import com.SpringBoot.CrudDemo.dao.AppDao;
+import com.SpringBoot.CrudDemo.entity.Course;
 import com.SpringBoot.CrudDemo.entity.Instructor;
 import com.SpringBoot.CrudDemo.entity.InstructorDetail;
 import org.springframework.boot.CommandLineRunner;
@@ -24,8 +25,27 @@ public class CrudDemoApplication {
 			//findInstructor(theAppDao);
 			//deleteInstructor(theAppDao);
 			//findInstructorDetail(theAppDao);
-			deleteInstructorDetails(theAppDao);
+			//deleteInstructorDetails(theAppDao);
+			createInstructorWithCourses(theAppDao);
 		};
+	}
+
+	private void createInstructorWithCourses(AppDao theAppDao) {
+
+		Instructor theInstructor = new Instructor("pikachu","where","pikachuWhere@gmail.com");
+     	InstructorDetail theInstructorDetails = new InstructorDetail("http://www.pikachuWhere.com/youtube","idk sleeping");
+		theInstructor.setInstructorDetail(theInstructorDetails);
+
+		Course c1 = new Course("React Js ultimate something");
+		Course c2 = new  Course("Node Js ultimate something");
+
+		theInstructor.add(c1);
+		theInstructor.add(c2);
+
+		System.out.println("saving instructor" + theInstructor);
+		System.out.println("The Courses"+theInstructor.getCourses());
+		theAppDao.save(theInstructor);
+
 	}
 
 	private void deleteInstructorDetails(AppDao theAppDao) {
