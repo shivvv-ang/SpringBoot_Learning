@@ -10,6 +10,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 
+import java.util.List;
+
 @SpringBootApplication
 public class CrudDemoApplication {
 
@@ -26,8 +28,109 @@ public class CrudDemoApplication {
 			//deleteInstructor(theAppDao);
 			//findInstructorDetail(theAppDao);
 			//deleteInstructorDetails(theAppDao);
-			createInstructorWithCourses(theAppDao);
+			//createInstructorWithCourses(theAppDao);
+			//findInstructorWithCourses(theAppDao);
+			//findCoursesForInstructor(theAppDao);
+			//findInstructorWithCoursesJoinFetch(theAppDao);
+			//updateInstructor(theAppDao);
+			//updateCourse(theAppDao);
+			//deleteInstructor(theAppDao);
+			deleteCourse(theAppDao);
 		};
+	}
+
+	private void deleteCourse(AppDao theAppDao) {
+
+		int theId = 10;
+
+		System.out.println("Deleting Course with id: " + theId);
+
+		theAppDao.deleteCourseById(theId);
+
+		System.out.println("Done");
+
+	}
+
+	private void updateCourse(AppDao theAppDao) {
+		int theId = 10;
+
+		Course course = theAppDao.findCourseById(theId);
+
+		System.out.println("Updating course id" + theId);
+
+		course.setTitle("Spring Boot Shenanigans");
+
+		theAppDao.update(course);
+
+		System.out.println("done");
+	}
+
+	private void updateInstructor(AppDao theAppDao) {
+
+		int theId = 1;
+
+		Instructor theInstructor = theAppDao.findInstructor(theId);
+
+		System.out.println("Updating Instructor with ID: " + theId);
+
+		theInstructor.setLastName("chimapnzee");
+
+		theAppDao.update(theInstructor);
+
+	}
+
+	private void findInstructorWithCoursesJoinFetch(AppDao theAppDao) {
+
+		int theId = 1;
+
+		System.out.println("Finding instructor with id " + theId);
+
+		Instructor instructor = theAppDao.FindInstructorByIdJoinFetch(theId);
+
+		System.out.println("Found instructor with id " + instructor);
+
+		System.out.println("the associated courses : " +  instructor.getCourses());
+
+		System.out.println("Done");
+	}
+
+	private void findCoursesForInstructor(AppDao theAppDao) {
+
+		int theId = 1;
+
+		System.out.println("Finding instructor with id " + theId);
+
+		Instructor tempInstructor = theAppDao.findInstructor(theId);
+
+		System.out.println("the instructor is " + tempInstructor);
+
+
+		System.out.println("Finding courses for the Instructor id " + theId);
+
+		List<Course> courses = theAppDao.findCoursesByInstructorById(theId);
+
+		tempInstructor.setCourses(courses);
+
+		System.out.println("the courses are " + tempInstructor.getCourses());
+
+		System.out.println("Done");
+
+	}
+
+	private void findInstructorWithCourses(AppDao theAppDao) {
+
+		int theId = 1;
+
+		System.out.println("Finding instructor with id " + theId);
+
+		Instructor tempInstructor = theAppDao.findInstructor(theId);
+
+		System.out.println("the instructor is " + tempInstructor);
+
+		System.out.println("associated courses are" + tempInstructor.getCourses());
+
+		System.out.println("done");
+
 	}
 
 	private void createInstructorWithCourses(AppDao theAppDao) {
