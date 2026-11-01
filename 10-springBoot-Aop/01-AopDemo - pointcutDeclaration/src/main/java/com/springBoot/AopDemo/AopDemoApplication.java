@@ -1,6 +1,7 @@
 package com.springBoot.AopDemo;
 import com.springBoot.AopDemo.Dao.AccountDao;
 import com.springBoot.AopDemo.Dao.MembershipDao;
+import com.springBoot.AopDemo.Service.TrafficFortuneService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,14 +17,46 @@ public class AopDemoApplication {
 	}
 
 	@Bean
-	public CommandLineRunner commandLineRunner(AccountDao accountDao , MembershipDao membershipDao) {
+	public CommandLineRunner commandLineRunner(AccountDao accountDao , MembershipDao membershipDao , TrafficFortuneService trafficFortuneService) {
 		return runner ->{
 
 			//demoBeforeAdvice(accountDao,membershipDao);
 			//demoAfterReturningAdvice(accountDao);
 			//demoAfterThrowingAdvice(accountDao);
-			demoAfterAdvice(accountDao);
+			//demoAfterAdvice(accountDao);
+			//demoAroundAdvice(trafficFortuneService);
+			demoAroundAdviceException(trafficFortuneService);
 		};
+	}
+
+	private void demoAroundAdviceException(TrafficFortuneService trafficFortuneService) {
+
+		System.out.println("\n Main program : demoAroundAdviceException");
+
+		System.out.println("Calling getFortune()");
+
+		boolean tripwire = true;
+
+		String data = trafficFortuneService.getFortune(tripwire);
+
+		System.out.println("fortune : " + data);
+
+		System.out.println("Done !");
+
+	}
+
+	private void demoAroundAdvice(TrafficFortuneService trafficFortuneService) {
+
+		System.out.println("\n Main program : demoAroundAdvice");
+
+		System.out.println("Calling getFortune()");
+
+		String data = trafficFortuneService.getFortune();
+
+		System.out.println("fortune : " + data);
+
+		System.out.println("Done !");
+
 	}
 
 	private void demoAfterAdvice(AccountDao accountDao) {
